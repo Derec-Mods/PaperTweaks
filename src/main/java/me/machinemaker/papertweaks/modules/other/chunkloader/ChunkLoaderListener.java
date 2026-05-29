@@ -51,13 +51,13 @@ public final class ChunkLoaderListener implements ModuleListener {
             return;
         }
 
-        assert event.getItem() != null;
-        ItemStack item = event.getItem();
-        if (item == null || item.getType() != Material.NETHER_STAR) {
+        if (this.manager.isChunkLoader(clickedBlock.getLocation())) {
             return;
         }
 
-        if (this.manager.isChunkLoader(clickedBlock.getLocation())) {
+        assert event.getItem() != null;
+        ItemStack item = event.getItem();
+        if (item == null || item.getType() != Material.NETHER_STAR) {
             return;
         }
 
