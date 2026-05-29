@@ -38,7 +38,7 @@ import org.bukkit.plugin.java.JavaPlugin;
     description = "Make a loadstone by using a Nether Star on a lodestone",
     configPath = "chunk-loaders"
 )
-public final class ChunkLoaderModule extends ModuleBase {
+public final class ChunkLoader extends ModuleBase {
 
     @Override
     protected Class<? extends ModuleLifecycle> lifecycle() {
