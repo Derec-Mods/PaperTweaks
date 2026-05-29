@@ -72,7 +72,15 @@ public final class ChunkLoaderManager {
             return false;
         }
 
-        return location.getChunk().getPersistentDataContainer().has(CHUNK_LOADER_KEY, DataTypes.BOOLEAN);
+        Location stored = location.getChunk().getPersistentDataContainer().get(CHUNK_LOADER_KEY, DataTypes.LOCATION);
+        if (stored == null || stored.getWorld() == null) {
+            return false;
+        }
+
+        return stored.getWorld().equals(location.getWorld())
+            && stored.getBlockX() == location.getBlockX()
+            && stored.getBlockY() == location.getBlockY()
+            && stored.getBlockZ() == location.getBlockZ();
     }
 
     private void setChunkLoaderMarker(Location location, boolean enabled) {
@@ -81,7 +89,7 @@ public final class ChunkLoaderManager {
         }
 
         if (enabled) {
-            location.getChunk().getPersistentDataContainer().set(CHUNK_LOADER_KEY, DataTypes.BOOLEAN, true);
+            location.getChunk().getPersistentDataContainer().set(CHUNK_LOADER_KEY, DataTypes.LOCATION, location.getBlock().getLocation());
         } else {
             location.getChunk().getPersistentDataContainer().remove(CHUNK_LOADER_KEY);
         }
