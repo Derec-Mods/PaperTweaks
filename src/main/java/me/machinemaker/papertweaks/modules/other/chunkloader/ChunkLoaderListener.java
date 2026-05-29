@@ -21,6 +21,8 @@ package me.machinemaker.papertweaks.modules.other.chunkloader;
 
 import com.google.inject.Inject;
 import me.machinemaker.papertweaks.modules.ModuleListener;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -51,13 +53,14 @@ public final class ChunkLoaderListener implements ModuleListener {
             return;
         }
 
-        if (this.manager.isChunkLoader(clickedBlock.getLocation())) {
-            return;
-        }
-
         assert event.getItem() != null;
         ItemStack item = event.getItem();
         if (item == null || item.getType() != Material.NETHER_STAR) {
+            return;
+        }
+
+        if (clickedBlock.getChunk().isForceLoaded()) {
+            event.getPlayer().sendActionBar(Component.text("This chunk is already loaded!", NamedTextColor.YELLOW));
             return;
         }
 
