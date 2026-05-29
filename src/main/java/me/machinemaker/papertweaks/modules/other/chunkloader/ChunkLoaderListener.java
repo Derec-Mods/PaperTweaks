@@ -44,17 +44,21 @@ public final class ChunkLoaderListener implements ModuleListener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getHand() != EquipmentSlot.HAND) {
             return;
         }
+
         final Block clickedBlock = event.getClickedBlock();
         if (clickedBlock == null || clickedBlock.getType() != Material.LODESTONE) {
             return;
         }
+
         final ItemStack item = event.getItem();
         if (item == null || item.getType() != Material.NETHER_STAR) {
             return;
         }
+
         if (this.manager.isChunkLoader(clickedBlock.getLocation())) {
             return;
         }
+
         this.manager.addChunkLoader(clickedBlock.getLocation());
         item.setAmount(item.getAmount() - 1);
     }
@@ -65,6 +69,7 @@ public final class ChunkLoaderListener implements ModuleListener {
         if (block.getType() != Material.LODESTONE) {
             return;
         }
+
         if (this.manager.isChunkLoader(block.getLocation())) {
             this.manager.removeChunkLoader(block.getLocation());
         }
