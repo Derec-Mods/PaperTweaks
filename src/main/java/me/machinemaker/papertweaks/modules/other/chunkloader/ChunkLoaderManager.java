@@ -30,16 +30,16 @@ public final class ChunkLoaderManager {
 
     private final Set<Location> chunkLoaders = new HashSet<>();
 
-    public boolean isChunkLoader(final Location location) {
+    public boolean isChunkLoader(Location location) {
         return this.chunkLoaders.contains(location);
     }
 
-    public void addChunkLoader(final Location location) {
+    public void addChunkLoader(Location location) {
         this.chunkLoaders.add(location);
         location.getChunk().setForceLoaded(true);
     }
 
-    public void removeChunkLoader(final Location location) {
+    public void removeChunkLoader(Location location) {
         this.chunkLoaders.remove(location);
         location.getChunk().setForceLoaded(false);
     }

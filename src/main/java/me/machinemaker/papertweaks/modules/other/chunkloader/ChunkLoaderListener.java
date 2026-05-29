@@ -35,22 +35,24 @@ public final class ChunkLoaderListener implements ModuleListener {
     private final ChunkLoaderManager manager;
 
     @Inject
-    private ChunkLoaderListener(final ChunkLoaderManager manager) {
+    private ChunkLoaderListener(ChunkLoaderManager manager) {
         this.manager = manager;
     }
 
     @EventHandler
-    public void onPlayerInteract(final PlayerInteractEvent event) {
+    public void onPlayerInteract(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getHand() != EquipmentSlot.HAND) {
             return;
         }
 
-        final Block clickedBlock = event.getClickedBlock();
+        assert event.getClickedBlock() != null;
+        Block clickedBlock = event.getClickedBlock();
         if (clickedBlock == null || clickedBlock.getType() != Material.LODESTONE) {
             return;
         }
 
-        final ItemStack item = event.getItem();
+        assert event.getItem() != null;
+        ItemStack item = event.getItem();
         if (item == null || item.getType() != Material.NETHER_STAR) {
             return;
         }
@@ -65,7 +67,7 @@ public final class ChunkLoaderListener implements ModuleListener {
 
     @EventHandler
     public void onBlockBreak(final BlockBreakEvent event) {
-        final Block block = event.getBlock();
+        Block block = event.getBlock();
         if (block.getType() != Material.LODESTONE) {
             return;
         }
