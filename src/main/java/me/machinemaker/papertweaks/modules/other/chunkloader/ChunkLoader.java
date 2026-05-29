@@ -19,19 +19,12 @@
  */
 package me.machinemaker.papertweaks.modules.other.chunkloader;
 
-import com.google.inject.Inject;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 import me.machinemaker.papertweaks.annotations.ModuleInfo;
 import me.machinemaker.papertweaks.modules.ModuleBase;
-import me.machinemaker.papertweaks.modules.ModuleCommand;
-import me.machinemaker.papertweaks.modules.ModuleConfig;
 import me.machinemaker.papertweaks.modules.ModuleLifecycle;
 import me.machinemaker.papertweaks.modules.ModuleListener;
-import me.machinemaker.papertweaks.modules.ModuleRecipe;
-import org.apache.logging.log4j.Logger;
-import org.bukkit.plugin.java.JavaPlugin;
 
 @ModuleInfo(
     name = "Chunk Loader",
@@ -42,32 +35,11 @@ public final class ChunkLoader extends ModuleBase {
 
     @Override
     protected Class<? extends ModuleLifecycle> lifecycle() {
-        return Lifecycle.class;
+        return ModuleLifecycle.Empty.class;
     }
 
     @Override
     protected Collection<Class<? extends ModuleListener>> listeners() {
         return Collections.singleton(ChunkLoaderListener.class);
-    }
-
-    static class Lifecycle extends ModuleLifecycle {
-
-        private final Logger logger;
-
-        @Inject
-        private Lifecycle(final JavaPlugin plugin, final Set<ModuleCommand> commands, final Set<ModuleListener> listeners, final Set<ModuleConfig> configs, final Set<ModuleRecipe<?>> moduleRecipes, final Logger logger) {
-            super(plugin, commands, listeners, configs, moduleRecipes);
-            this.logger = logger;
-        }
-
-        @Override
-        public void onEnable() {
-            this.logger.info("Chunk Loader module enabled");
-        }
-
-        @Override
-        public void onDisable(final boolean isShutdown) {
-            this.logger.info("Chunk Loader module disabled");
-        }
     }
 }
