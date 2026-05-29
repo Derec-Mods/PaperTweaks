@@ -25,6 +25,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -56,5 +57,16 @@ public final class ChunkLoaderListener implements ModuleListener {
         }
         this.manager.addChunkLoader(clickedBlock.getLocation());
         item.setAmount(item.getAmount() - 1);
+    }
+
+    @EventHandler
+    public void onBlockBreak(final BlockBreakEvent event) {
+        final Block block = event.getBlock();
+        if (block.getType() != Material.LODESTONE) {
+            return;
+        }
+        if (this.manager.isChunkLoader(block.getLocation())) {
+            this.manager.removeChunkLoader(block.getLocation());
+        }
     }
 }
