@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 
 @Singleton
 public final class ChunkLoaderManager {
@@ -37,11 +38,13 @@ public final class ChunkLoaderManager {
     public void addChunkLoader(Location location) {
         this.chunkLoaders.add(location);
         location.getChunk().setForceLoaded(true);
+        location.getWorld().playSound(location, Sound.BLOCK_CONDUIT_ACTIVATE, 1.0f, 1.0f);
     }
 
     public void removeChunkLoader(Location location) {
         this.chunkLoaders.remove(location);
         location.getChunk().setForceLoaded(false);
+        location.getWorld().playSound(location, Sound.BLOCK_CONDUIT_DEACTIVATE, 1.0f, 1.0f);
     }
 
     public Set<Location> getChunkLoaders() {
