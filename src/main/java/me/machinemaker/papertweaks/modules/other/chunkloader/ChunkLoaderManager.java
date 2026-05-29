@@ -29,9 +29,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.TileState;
 
 @Singleton
 public final class ChunkLoaderManager {
@@ -44,8 +41,7 @@ public final class ChunkLoaderManager {
             return true;
         }
 
-        Block block = location.getBlock();
-        if (this.hasChunkLoaderMarker(block)) {
+        if (this.hasChunkLoaderMarker(location)) {
             this.chunkLoaders.add(location);
             return true;
         }
@@ -55,14 +51,14 @@ public final class ChunkLoaderManager {
 
     public void addChunkLoader(Location location) {
         this.chunkLoaders.add(location);
-        this.setChunkLoaderMarker(location.getBlock(), true);
+        this.setChunkLoaderMarker(location, true);
         location.getChunk().setForceLoaded(true);
         location.getWorld().playSound(location, Sound.BLOCK_CONDUIT_ACTIVATE, 1.0f, 1.0f);
     }
 
     public void removeChunkLoader(Location location) {
         this.chunkLoaders.remove(location);
-        this.setChunkLoaderMarker(location.getBlock(), false);
+        this.setChunkLoaderMarker(location, false);
         location.getChunk().setForceLoaded(false);
         location.getWorld().playSound(location, Sound.BLOCK_CONDUIT_DEACTIVATE, 1.0f, 1.0f);
     }
@@ -71,35 +67,23 @@ public final class ChunkLoaderManager {
         return Collections.unmodifiableSet(this.chunkLoaders);
     }
 
-    private boolean hasChunkLoaderMarker(Block block) {
-        if (block.getType() != Material.LODESTONE) {
+    private boolean hasChunkLoaderMarker(Location location) {
+        if (location.getBlock().getType() != Material.LODESTONE) {
             return false;
         }
 
-        BlockState state = block.getState();
-        if (!(state instanceof TileState tileState)) {
-            return false;
-        }
-
-        return tileState.getPersistentDataContainer().has(CHUNK_LOADER_KEY, DataTypes.BOOLEAN);
+        return location.getChunk().getPersistentDataContainer().has(CHUNK_LOADER_KEY, DataTypes.BOOLEAN);
     }
 
-    private void setChunkLoaderMarker(Block block, boolean enabled) {
-        if (block.getType() != Material.LODESTONE) {
-            return;
-        }
-
-        BlockState state = block.getState();
-        if (!(state instanceof TileState tileState)) {
+    private void setChunkLoaderMarker(Location location, boolean enabled) {
+        if (location.getBlock().getType() != Material.LODESTONE) {
             return;
         }
 
         if (enabled) {
-            tileState.getPersistentDataContainer().set(CHUNK_LOADER_KEY, DataTypes.BOOLEAN, true);
+            location.getChunk().getPersistentDataContainer().set(CHUNK_LOADER_KEY, DataTypes.BOOLEAN, true);
         } else {
-            tileState.getPersistentDataContainer().remove(CHUNK_LOADER_KEY);
+            location.getChunk().getPersistentDataContainer().remove(CHUNK_LOADER_KEY);
         }
-
-        tileState.update(true, false);
     }
 }
