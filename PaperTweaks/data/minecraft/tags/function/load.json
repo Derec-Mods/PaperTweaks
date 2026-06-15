@@ -1,0 +1,9 @@
+{
+  "values": [
+    "papertweaks:confetti/load",
+    "papertweaks:confetti/tick",
+    "papertweaks:confetti/check_trigger",
+    "papertweaks:confetti/give_effects",
+    "papertweaks:anti_creeper/second"
+  ]
+}

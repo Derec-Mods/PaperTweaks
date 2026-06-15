@@ -1,0 +1,1 @@
+tag @e[type=minecraft:creeper,tag=papertweaks_confetti_done] remove papertweaks_confetti_done

@@ -1,0 +1,7 @@
+execute if score #rand pt_rand matches 0 run summon minecraft:firework_rocket ~ ~ ~ {LifeTime:0,FireworksItem:{id:"minecraft:creeper_head",count:1,components:{"minecraft:fireworks":{explosions:[{shape:"burst",colors:[I;11743532],has_trail:0b,has_twinkle:0b}]}}}}
+execute if score #rand pt_rand matches 1 run summon minecraft:firework_rocket ~ ~ ~ {LifeTime:0,FireworksItem:{id:"minecraft:creeper_head",count:1,components:{"minecraft:fireworks":{explosions:[{shape:"burst",colors:[I;15435844],has_trail:0b,has_twinkle:0b}]}}}}
+execute if score #rand pt_rand matches 2 run summon minecraft:firework_rocket ~ ~ ~ {LifeTime:0,FireworksItem:{id:"minecraft:creeper_head",count:1,components:{"minecraft:fireworks":{explosions:[{shape:"burst",colors:[I;14602026],has_trail:0b,has_twinkle:0b}]}}}}
+execute if score #rand pt_rand matches 3 run summon minecraft:firework_rocket ~ ~ ~ {LifeTime:0,FireworksItem:{id:"minecraft:creeper_head",count:1,components:{"minecraft:fireworks":{explosions:[{shape:"burst",colors:[I;4312372],has_trail:0b,has_twinkle:0b}]}}}}
+execute if score #rand pt_rand matches 4 run summon minecraft:firework_rocket ~ ~ ~ {LifeTime:0,FireworksItem:{id:"minecraft:creeper_head",count:1,components:{"minecraft:fireworks":{explosions:[{shape:"burst",colors:[I;6719955],has_trail:0b,has_twinkle:0b}]}}}}
+tag @s add papertweaks_confetti_done
+schedule function papertweaks:confetti/clear_done 2s replace
